@@ -1,0 +1,20 @@
+<jxb:bindings xmlns:jxb="https://jakarta.ee/xml/ns/jaxb"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="3.0">
+    <jxb:bindings  version="3.0">
+        <!-- Customise the package name -->
+        <!-- rename the value element -->
+            <jxb:bindings node="//xs:attribute[@name='column']">
+                <jxb:property name="columnAttr"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xs:attribute[@name='type']">
+            <jxb:property name="typeAttr"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xs:attribute[@name='subselect']">
+            <jxb:property name="subselectAttr"/>
+        </jxb:bindings>
+        <jxb:bindings node="//xs:attribute[@name='formula']">
+            <jxb:property name="formulaAttr"/>
+        </jxb:bindings>
+    </jxb:bindings>
+</jxb:bindings>
