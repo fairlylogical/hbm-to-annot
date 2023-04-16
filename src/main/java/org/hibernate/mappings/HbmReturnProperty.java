@@ -1,0 +1,123 @@
+//
+// Ce fichier a été généré par Eclipse Implementation of JAXB, v3.0.0 
+// Voir https://eclipse-ee4j.github.io/jaxb-ri 
+// Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
+// Généré le : 2023.04.16 à 06:57:33 PM CEST 
+//
+
+
+package org.hibernate.mappings;
+
+import jakarta.xml.bind.annotation.*;
+import org.hibernate.mappings.visitor.HbmNodeVisitor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * <p>Classe Java pour anonymous complex type.
+ *
+ * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
+ *
+ * <pre>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element ref="{}return-column" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}anySimpleType" /&gt;
+ *       &lt;attribute name="column" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
+ * </pre>
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+        "returnColumn"
+})
+@XmlRootElement(name = "return-property")
+public class HbmReturnProperty implements IHbmNode {
+    @Override
+    public void accept(HbmNodeVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @XmlElement(name = "return-column")
+    protected List<HbmReturnColumn> returnColumn;
+    @XmlAttribute(name = "name", required = true)
+    @XmlSchemaType(name = "anySimpleType")
+    protected String name;
+    @XmlAttribute(name = "column")
+    protected String columnAttr;
+
+    /**
+     * Gets the value of the returnColumn property.
+     *
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the Jakarta XML Binding object.
+     * This is why there is not a <CODE>set</CODE> method for the returnColumn property.
+     *
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getReturnColumn().add(newItem);
+     * </pre>
+     *
+     *
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link HbmReturnColumn }
+     */
+    public List<HbmReturnColumn> getReturnColumn() {
+        if (returnColumn == null) {
+            returnColumn = new ArrayList<HbmReturnColumn>();
+        }
+        return this.returnColumn;
+    }
+
+    /**
+     * Obtient la valeur de la propriété name.
+     *
+     * @return possible object is
+     * {@link String }
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Définit la valeur de la propriété name.
+     *
+     * @param value allowed object is
+     *              {@link String }
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété columnAttr.
+     *
+     * @return possible object is
+     * {@link String }
+     */
+    public String getColumnAttr() {
+        return columnAttr;
+    }
+
+    /**
+     * Définit la valeur de la propriété columnAttr.
+     *
+     * @param value allowed object is
+     *              {@link String }
+     */
+    public void setColumnAttr(String value) {
+        this.columnAttr = value;
+    }
+
+}
