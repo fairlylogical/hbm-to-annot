@@ -27,7 +27,7 @@ public class Main {
 
         XMLInputFactory xif = XMLInputFactory.newFactory();
         xif.setProperty(XMLInputFactory.SUPPORT_DTD, false);
-        XMLStreamReader xsr = xif.createXMLStreamReader(new InputStreamReader(Main.class.getClassLoader().getResourceAsStream("hbm/xml/Person.hbm.xml")));
+        XMLStreamReader xsr = xif.createXMLStreamReader(new InputStreamReader(Main.class.getClassLoader().getResourceAsStream("hbm/xml/Event.hbm.xml")));
 
         JAXBContext jaxbContext = JAXBContext.newInstance( HbmHibernateMapping.class );
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -35,7 +35,7 @@ public class Main {
 //Overloaded methods to unmarshal from different xml sources
         HbmHibernateMapping hbmMapping = (HbmHibernateMapping) jaxbUnmarshaller.unmarshal(xsr);
         // Our sample is in the root of this directory, so no package name.
-        CompilationUnit cu = sourceRoot.parse("org.hibernate.orm.test.jcache.domain", "Person.java");
+        CompilationUnit cu = sourceRoot.parse("org.hibernate.orm.test.jcache.domain", "Event.java");
 //        for (ParseResult<CompilationUnit> parseResult : compilUnitResults) {
 //            CompilationUnit cu = parseResult.getResult().get();
             HbmNodeVisitor visitor = new HbmNodeVisitor(cu);

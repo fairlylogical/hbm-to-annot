@@ -169,6 +169,19 @@ public class HbmNodeVisitor {
     }
 
     public void visit(HbmManyToOne hbmManyToOne) {
+        cu.accept(new ModifierVisitor<Void>() {
+            @Override
+            public Visitable visit(FieldDeclaration n, Void arg) {
+                if (n.getVariables() != null && n.getVariables().size() == 1 && StringUtils.equals(hbmManyToOne.getName(), n.getVariable(0).getName().asString())) {
+                    NormalAnnotationExpr manyToOneAnnot = new NormalAnnotationExpr(StaticJavaParser.parseName("ManyToOne"), new NodeList());
+                    NormalAnnotationExpr joinColumnAnnot = new NormalAnnotationExpr(StaticJavaParser.parseName("JoinColumn"), new NodeList());
+                    joinColumnAnnot.addPair("name", new StringLiteralExpr(hbmManyToOne.getColumnAttr()));
+                    n.addAnnotation(manyToOneAnnot)
+                            .addAnnotation(joinColumnAnnot);
+                }
+                return super.visit(n, arg);
+            }
+        }, null);
     }
 
     public void visit(HbmMap hbmMap) {
@@ -212,13 +225,9 @@ public class HbmNodeVisitor {
 
     public void visit(HbmProperty hbmProperty) {
         cu.accept(new ModifierVisitor<Void>() {
-            /**
-             * For every if-statement, see if it has a comparison using "!=".
-             * Change it to "==" and switch the "then" and "else" statements around.
-             */
             @Override
             public Visitable visit(FieldDeclaration n, Void arg) {
-                if (n.getVariables().size() == 1 && StringUtils.equals(hbmProperty.getName(), n.getVariable(0).getName().asString())) {
+                if (n.getVariables() != null && n.getVariables().size() == 1 && StringUtils.equals(hbmProperty.getName(), n.getVariable(0).getName().asString())) {
                     NormalAnnotationExpr annotation = new NormalAnnotationExpr(StaticJavaParser.parseName("Column"), new NodeList());
                     annotation.addPair("name", new StringLiteralExpr(hbmProperty.getName()));
                     n.addAnnotation(annotation);
@@ -256,10 +265,20 @@ public class HbmNodeVisitor {
     }
 
     public void visit(HbmSet hbmSet) {
-        HbmOneToMany manyToOne = hbmSet.getOneToMany();
+//        cu.accept(new ModifierVisitor<Void>() {
+//            @Override
+//            public Visitable visit(FieldDeclaration n, Void arg) {
+//                if (n.getVariables() != null && n.getVariables().size() == 1 && StringUtils.equals(hbmSet.getName(), n.getVariable(0).getName().asString())) {
+//                    NormalAnnotationExpr annotation = new NormalAnnotationExpr(StaticJavaParser.parseName("OneToMany"), new NodeList());
+//                    n.addAnnotation(annotation);
+//                }
+//                return super.visit(n, arg);
+//            }
+//        }, null);
+        HbmOneToMany oneToMany = hbmSet.getOneToMany();
         HbmManyToMany manyToMany = hbmSet.getManyToMany();
-        if (manyToOne != null) {
-            manyToOne.accept(this);
+        if (oneToMany != null) {
+            oneToMany.accept(this);
         } else if (manyToMany != null) {
             manyToMany.accept(this);
         }
@@ -303,5 +322,6 @@ public class HbmNodeVisitor {
 
     public void visit(HbmVersion hbmVersion) {
     }
+
 
 }
